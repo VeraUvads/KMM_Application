@@ -1,0 +1,15 @@
+CREATE TABLE Wish (
+    id INTEGER NOT NULL,
+    text TEXT NOT NULL
+);
+
+insertWish:
+INSERT INTO Wish(id, text)
+VALUES(?, ?);
+
+removeAllWishes:
+DELETE FROM Wish;
+
+selectAllWishesInfo:
+SELECT *
+FROM Wish;

@@ -3,8 +3,10 @@ plugins {
     id("com.android.library")
     kotlin("plugin.serialization")
 //    id("com.codingfeline.buildkonfig")
+    id("com.squareup.sqldelight")
 }
 
+val sqlDelightVersion: String by project
 val coroutinesVersion by extra("1.6.0")
 val lifecycleVersion by extra("2.4.0-rc01")
 val ktorVersion by extra("2.0.0-beta-1")
@@ -27,17 +29,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion") {
-                    isForce = true
-                }
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-                implementation("com.benasher44:uuid:0.3.1")
-
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+//                implementation("io.ktor:ktor-client-core:$ktorVersion")
+//                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-
-                implementation("com.russhwolf:multiplatform-settings-coroutines:$settingsVersion")
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
             }
         }
         val commonTest by getting {
@@ -50,8 +47,9 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-                implementation("androidx.datastore:datastore-preferences:1.0.0")
-                implementation("androidx.startup:startup-runtime:1.1.0")
+//                implementation("androidx.datastore:datastore-preferences:1.0.0")
+//                implementation("androidx.startup:startup-runtime:1.1.0")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
         val androidTest by getting {
@@ -70,6 +68,7 @@ kotlin {
             // iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
         val iosX64Test by getting
@@ -92,3 +91,9 @@ android {
         targetSdk = 31
     }
 }
+
+//sqldelight {
+//    database("AppDatabase") {
+//        packageName = "com.example.kmmapplication.shared.cache"
+//    }
+//}

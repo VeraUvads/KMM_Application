@@ -1,8 +1,7 @@
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
     kotlin("plugin.serialization")
-//    id("com.codingfeline.buildkonfig")
+    id("com.android.library")
     id("com.squareup.sqldelight")
 }
 
@@ -31,8 +30,11 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
 
-//                implementation("io.ktor:ktor-client-core:$ktorVersion")
-//                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
             }
@@ -47,8 +49,7 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-//                implementation("androidx.datastore:datastore-preferences:1.0.0")
-//                implementation("androidx.startup:startup-runtime:1.1.0")
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
@@ -92,8 +93,8 @@ android {
     }
 }
 
-//sqldelight {
-//    database("AppDatabase") {
-//        packageName = "com.example.kmmapplication.shared.cache"
-//    }
-//}
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.example.kmmapplication.shared.cache"
+    }
+}

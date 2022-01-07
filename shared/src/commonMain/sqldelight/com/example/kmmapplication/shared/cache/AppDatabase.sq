@@ -1,5 +1,5 @@
 CREATE TABLE Wish (
-    id INTEGER NOT NULL,
+    id INTEGER NOT NULL PRIMARY KEY,
     text TEXT NOT NULL
 );
 
@@ -9,6 +9,9 @@ VALUES(?, ?);
 
 removeAllWishes:
 DELETE FROM Wish;
+
+removeWish:
+DELETE FROM Wish WHERE id = ?;
 
 selectAllWishesInfo:
 SELECT *

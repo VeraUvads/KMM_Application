@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kmmapplication.android.main.WishUI
+import com.example.kmmapplication.android.main.WishesUI
+import com.example.kmmapplication.utils.DatabaseDriverFactory
 import com.example.kmmapplication.wishes.WishesViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -13,8 +14,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        wishesViewModel.getWishes(DatabaseDriverFactory(applicationContext))
         setContent {
-            WishUI(wishesViewModel)
+            WishesUI(wishesViewModel)
         }
     }
 }

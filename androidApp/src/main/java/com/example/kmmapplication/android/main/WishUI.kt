@@ -14,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.kmmapplication.android.R
 import com.example.kmmapplication.android.main.theme.ButtonBlue
 import com.example.kmmapplication.data.Wish
@@ -23,21 +25,29 @@ import com.example.kmmapplication.wishes.WishesViewModel
 @Composable
 fun WishesUI(wishesViewModel: WishesViewModel) {
     val wishes by wishesViewModel.wishes.collectAsState(emptyList())
+    Column {
+        Title()
+        LazyColumn {
+            items(wishes) { wish ->
+                WishCard(wish) {
+                    wishesViewModel.removeWish(it)
+                }
+            }
+        }
+    }
+}
 
+@Composable
+fun Title() {
     Text(
         text = "Your wish list",
+        textAlign = TextAlign.Center,
+        fontSize = 16.sp,
         color = Color.Black,
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     )
-    LazyColumn {
-        items(wishes) { wish ->
-            WishCard(wish) {
-                wishesViewModel.removeWish(it)
-            }
-        }
-    }
 }
 
 @Composable
